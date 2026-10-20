@@ -1,0 +1,28 @@
+name: Compilar e testar C++
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compilar os tres programas
+        run: |
+          mkdir -p build
+          for arquivo in busca_B ordem_S tree_B; do
+            g++ -std=c++17 -Wall -Wextra -Werror -pedantic "$arquivo.cpp" -o "build/$arquivo"
+          done
+      - name: Validar algoritmos e memoria
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -pedantic -fsanitize=address,undefined -g tests/testes.cpp -o build/testes
+          ./build/testes
+      - name: Validar entradas e saidas
+        shell: bash
+        run: |
+          printf '5\n1 3 5 7 9\n7\n' | ./build/busca_B | grep -q 'indice 3'
+          printf '5\n9 -1 5 0 5\n' | ./build/ordem_S | grep -q 'Valores ordenados: -1 0 5 5 9'
+          printf '1\n5\n2\n5\n3\n5\n4\n0\n' | ./build/tree_B | grep -q 'Arvore vazia'
+          if printf '3\n3 2 1\n2\n' | ./build/busca_B; then exit 1; fi
+          if printf '%s\n' '-1' | ./build/ordem_S; then exit 1; fi
+          if printf '1\nx\n' | ./build/tree_B; then exit 1; fi
