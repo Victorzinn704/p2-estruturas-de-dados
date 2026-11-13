@@ -7,13 +7,19 @@
 #include <vector>
 
 #define main mainBusca
+#define lerInteiro lerInteiroBusca
 #include "../busca_B.cpp"
+#undef lerInteiro
 #undef main
 #define main mainSelecao
+#define lerInteiro lerInteiroSelecao
 #include "../ordem_S.cpp"
+#undef lerInteiro
 #undef main
 #define main mainArvore
+#define lerInteiro lerInteiroArvore
 #include "../tree_B.cpp"
+#undef lerInteiro
 #undef main
 
 void coletar(const No* raiz, std::vector<int>& valores) {

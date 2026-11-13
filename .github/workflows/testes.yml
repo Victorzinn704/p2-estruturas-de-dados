@@ -26,3 +26,7 @@ jobs:
           if printf '3\n3 2 1\n2\n' | ./build/busca_B; then exit 1; fi
           if printf '%s\n' '-1' | ./build/ordem_S; then exit 1; fi
           if printf '1\nx\n' | ./build/tree_B; then exit 1; fi
+      - name: Validar cenarios completos de terminal
+        run: python3 tests/testar_cli.py build
+      - name: Conferir pacote de entrega
+        run: python3 preparar_entrega.py --saida dist
