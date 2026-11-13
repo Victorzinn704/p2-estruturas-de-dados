@@ -1,8 +1,9 @@
 # Trabalho P2 - Estruturas de Dados em C++
 
-Integrante: **Joao Victor de Moraes da Cruz**. Trabalho individual.
+Trabalho em dupla.
 
-O enunciado solicita dupla; esta entrega registra a escolha do estudante por realizar o trabalho sozinho, sem presumir autorização do professor.
+- **João Victor de Moraes da Cruz** — matrícula **202512557**.
+- **Paulo Marques de Araujo** — matrícula **202512490**.
 
 ## Arquivos para entrega
 
@@ -28,6 +29,8 @@ Execute o programa desejado e acompanhe as perguntas no terminal. Em Linux, use 
 
 Na busca e na ordenação, informe a quantidade e depois os inteiros separados por espaços ou quebras de linha. A busca pede ainda o valor procurado. São aceitos de zero a 10.000 elementos; entrada inválida encerra o programa com mensagem e código 1. A busca rejeita dados fora de ordem e informa índice a partir de zero. Com repetições, retorna uma ocorrência, sem garantir a primeira.
 
+A leitura confere cada inteiro completo, incluindo os limites do tipo `int`. Entradas como `9x`, `7.5` e números fora desse intervalo encerram o programa com mensagem de erro.
+
 Exemplo de busca: quantidade `5`, valores `1 3 5 7 9`, alvo `7`; resultado: índice `3`. Exemplo de seleção: valores `9 -1 5 0 5`; resultado: `-1 0 5 5 9`.
 
 A árvore possui menu de 0 a 6 e não armazena duplicatas. A remoção cobre folha, nó com um filho e nó com dois filhos (sucessor em ordem). Não há balanceamento; entradas ordenadas podem gerar uma árvore degenerada. Inserção, remoção, percursos e liberação usam recursão e são destinados a demonstrações acadêmicas de tamanho moderado.
@@ -50,3 +53,16 @@ g++ -std=c++17 -Wall -Wextra -pedantic tests/testes.cpp -o testes
 Os testes verificam vetor vazio, elemento único, negativos, repetições, extremos de inteiros, presença/ausência, 101 vetores comparados à ordenação de referência, três percursos, remoções e 1.000 operações de árvore comparadas a um conjunto. GitHub Actions também compila os programas independentes, testa entradas/saídas e executa verificadores de memória e comportamento indefinido.
 
 O histórico Git registra a implementação e a adição da validação. Consulte a aba Actions para o resultado da execução no GitHub; a existência do workflow, por si só, não comprova aprovação.
+
+## Conferir o terminal e preparar a entrega
+
+Depois de compilar os programas na pasta `build`, execute com Python 3.
+
+```sh
+python tests/testar_cli.py build
+python preparar_entrega.py --saida dist
+```
+
+O primeiro comando testa os programas pelo terminal, incluindo os limites de 0 e 10.000 elementos, valores inválidos, duplicatas, percursos e remoções. O segundo gera `P2_Joao_Victor_202512557_e_Paulo_Marques_de_Araujo_202512490.zip`, reabre o arquivo e confere os nomes, a identificação da dupla e a igualdade dos bytes com os fontes.
+
+O fluxo de atualização passa pela revisão dos três fontes, compilação independente, testes de algoritmos, testes de terminal, geração do ZIP e conferência do arquivo extraído. O envio ao AVA deve usar o ZIP gerado. A documentação e os testes permanecem no Git.

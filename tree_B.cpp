@@ -1,6 +1,17 @@
-// Joao Victor de Moraes da Cruz - Trabalho P2 (individual)
+// Trabalho P2 - Estruturas de Dados - Arvore Binaria de Busca
+// Dupla: João Victor de Moraes da Cruz - Matricula: 202512557
+//        Paulo Marques de Araujo - Matricula: 202512490
 #include <iostream>
+#include <sstream>
+#include <string>
 using namespace std;
+
+bool lerInteiro(int& valor) {
+    string entrada;
+    if (!(cin >> entrada)) return false;
+    istringstream conversor(entrada);
+    return static_cast<bool>(conversor >> valor) && conversor.eof();
+}
 
 struct No {
     int valor;
@@ -38,6 +49,7 @@ No* remover(No* raiz, int valor) {
             delete raiz;
             return filho;
         }
+        // Com dois filhos, substitui pelo menor valor da subarvore direita.
         No* sucessor = raiz->direita;
         while (sucessor->esquerda != nullptr) sucessor = sucessor->esquerda;
         raiz->valor = sucessor->valor;
@@ -80,14 +92,14 @@ int main() {
     do {
         cout << "\n1 - Inserir\n2 - Buscar\n3 - Remover\n4 - Em ordem\n"
              << "5 - Pre-ordem\n6 - Pos-ordem\n0 - Sair\nOpcao: ";
-        if (!(cin >> opcao) || opcao < 0 || opcao > 6) {
+        if (!lerInteiro(opcao) || opcao < 0 || opcao > 6) {
             cerr << "Opcao invalida.\n";
             liberar(raiz);
             return 1;
         }
         if (opcao >= 1 && opcao <= 3) {
             cout << "Valor: ";
-            if (!(cin >> valor)) {
+            if (!lerInteiro(valor)) {
                 cerr << "Valor invalido.\n";
                 liberar(raiz);
                 return 1;
